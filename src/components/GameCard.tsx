@@ -6,10 +6,10 @@ import {
   HStack,
   Image,
 } from "@chakra-ui/react";
-import { Game } from "../hooks/useGames";
 import CriticScore from "./CriticScore";
 import PlatformIconList from "./PlatformIconList";
 import getCroppedImage from "../services/image-url";
+import { Game } from "../services/gameService";
 
 interface Props {
   game: Game;
