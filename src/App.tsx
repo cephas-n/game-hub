@@ -11,7 +11,7 @@ interface Genre {
 }
 
 const App = () => {
-  const { genres, isLoading } = useGenres();
+  const { data: genres, isLoading } = useGenres();
 
   return (
     <Grid

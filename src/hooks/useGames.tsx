@@ -1,28 +1,19 @@
-import { useEffect, useState } from "react";
-import gameService, { FetchGamesResponse, Game } from "../services/gameService";
+import useData from "./useData";
 
-function useGames() {
-  const [games, setGames] = useState<Game[]>();
-  const [error, setError] = useState("");
-  const [isLoading, setLoading] = useState(true);
-
-  useEffect(() => {
-    const { request, cancel } = gameService.get<FetchGamesResponse>();
-
-    request
-      .then((res) => {
-        setGames(res?.data.results);
-        setLoading(false);
-      })
-      .catch((err) => {
-        setError(err.message);
-        setLoading(false);
-      });
-
-    return cancel;
-  }, []);
-
-  return { games, error, isLoading };
+export interface Platform {
+  id: string;
+  name: string;
+  slug: string;
 }
+
+export interface Game {
+  id: string;
+  name: string;
+  background_image: string;
+  parent_platforms: { platform: Platform }[];
+  metacritic: number;
+}
+
+const useGames = () => useData<Game>("/games");
 
 export default useGames;

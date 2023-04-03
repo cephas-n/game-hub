@@ -1,7 +1,6 @@
 import {
   Card,
   CardBody,
-  CardHeader,
   Heading,
   HStack,
   Image,
@@ -9,7 +8,7 @@ import {
 import CriticScore from "./CriticScore";
 import PlatformIconList from "./PlatformIconList";
 import getCroppedImage from "../services/image-url";
-import { Game } from "../services/gameService";
+import { Game } from "../hooks/useGames";
 
 interface Props {
   game: Game;
