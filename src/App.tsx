@@ -1,9 +1,7 @@
-import { Grid, GridItem, Show } from "@chakra-ui/react";
-import { useEffect, useState } from "react";
+import { Grid, GridItem, Show, Spinner } from "@chakra-ui/react";
+import GameGenreList from "./components/GameGenreList";
 import GameGrid from "./components/GameGrid";
 import NavBar from "./components/NavBar";
-import useGenres from "./hooks/useGenres";
-import apiClient from "./services/api-client";
 
 interface Genre {
   id: number;
@@ -11,25 +9,23 @@ interface Genre {
 }
 
 const App = () => {
-  const { data: genres, isLoading } = useGenres();
-
   return (
     <Grid
       templateAreas={{
         base: `"nav" "main"`,
         lg: `"nav nav" "aside main"`,
       }}
+      gridTemplateColumns={{
+        base: "1fr",
+        lg: "200px 1fr",
+      }}
     >
       <GridItem area="nav">
         <NavBar />
       </GridItem>
       <Show above="lg">
-        <GridItem area="aside">
-          <ul>
-            {genres?.map((genre) => (
-              <li key={genre.id}>{genre.name}</li>
-            ))}
-          </ul>
+        <GridItem area="aside" paddingX="20px">
+          <GameGenreList />
         </GridItem>
       </Show>
       <GridItem area="main">
