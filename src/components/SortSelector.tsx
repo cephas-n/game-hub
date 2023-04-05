@@ -1,7 +1,17 @@
 import { Button, Menu, MenuButton, MenuItem, MenuList } from "@chakra-ui/react";
 import { FaChevronDown } from "react-icons/fa";
 
-const SortSelector = () => {
+export interface SortOrder {
+  label: string;
+  value: string;
+}
+
+interface Props {
+  selectedOrder: SortOrder | null;
+  onSort: (order: SortOrder) => void;
+}
+
+const SortSelector = ({ selectedOrder, onSort }: Props) => {
   const sortOrders = [
     { value: "", label: "Relevance" },
     { value: "-added", label: "Date added" },
@@ -19,11 +29,13 @@ const SortSelector = () => {
         minWidth="200px"
         textAlign="left"
       >
-        Order By: Relevance
+        Order By: {selectedOrder?.label || "Relavence"}
       </MenuButton>
       <MenuList>
         {sortOrders.map((order) => (
-          <MenuItem key={order.value}>{order.label}</MenuItem>
+          <MenuItem key={order.value} onClick={() => onSort(order)}>
+            {order.label}
+          </MenuItem>
         ))}
       </MenuList>
     </Menu>

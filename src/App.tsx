@@ -4,7 +4,7 @@ import GameGenreList from "./components/GameGenreList";
 import GameGrid from "./components/GameGrid";
 import NavBar from "./components/NavBar";
 import PlatformSelector from "./components/PlatformSelector";
-import SortSelector from "./components/SortSelector";
+import SortSelector, { SortOrder } from "./components/SortSelector";
 import { Genre } from "./hooks/useGenres";
 import { Platform } from "./hooks/usePlatform";
 
@@ -13,6 +13,7 @@ const App = () => {
   const [selectedPlatform, setSelectedPlatform] = useState<Platform | null>(
     null
   );
+  const [selectedOrder, setSelectedOrder] = useState<SortOrder | null>(null);
 
   const handleSelectGenre = (genre: Genre) => {
     setSelectedGenre(genre);
@@ -21,6 +22,10 @@ const App = () => {
   const handleSelectPlatform = (platform: Platform) => {
     if (platform.id === -1) setSelectedPlatform(null);
     else setSelectedPlatform(platform);
+  };
+
+  const handleSelectOrder = (order: SortOrder) => {
+    setSelectedOrder(order);
   };
 
   return (
@@ -51,11 +56,15 @@ const App = () => {
             selectedPlatform={selectedPlatform}
             onSelect={handleSelectPlatform}
           />
-          <SortSelector />
+          <SortSelector
+            selectedOrder={selectedOrder}
+            onSort={handleSelectOrder}
+          />
         </HStack>
         <GameGrid
           selectedGenre={selectedGenre}
           selectedPlatform={selectedPlatform}
+          selectedOrder={selectedOrder}
         />
       </GridItem>
     </Grid>
