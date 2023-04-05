@@ -1,9 +1,10 @@
-import { Grid, GridItem, Show, Spinner } from "@chakra-ui/react";
+import { Grid, GridItem, HStack, Show, Spinner } from "@chakra-ui/react";
 import { useState } from "react";
 import GameGenreList from "./components/GameGenreList";
 import GameGrid from "./components/GameGrid";
 import NavBar from "./components/NavBar";
 import PlatformSelector from "./components/PlatformSelector";
+import SortSelector from "./components/SortSelector";
 import { Genre } from "./hooks/useGenres";
 import { Platform } from "./hooks/usePlatform";
 
@@ -45,10 +46,13 @@ const App = () => {
         </GridItem>
       </Show>
       <GridItem area="main" padding={10}>
-        <PlatformSelector
-          selectedPlatform={selectedPlatform}
-          onSelect={handleSelectPlatform}
-        />
+        <HStack spacing={4}>
+          <PlatformSelector
+            selectedPlatform={selectedPlatform}
+            onSelect={handleSelectPlatform}
+          />
+          <SortSelector />
+        </HStack>
         <GameGrid
           selectedGenre={selectedGenre}
           selectedPlatform={selectedPlatform}

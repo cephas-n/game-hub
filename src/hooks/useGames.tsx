@@ -11,12 +11,12 @@ export interface Game {
   genres: Genre[];
 }
 
-interface GameHookParams {
+interface Props {
   selectedGenre: Genre | null;
   selectedPlatform: Platform | null;
 }
 
-const useGames = ({ selectedGenre, selectedPlatform }: GameHookParams) => {
+const useGames = ({ selectedGenre, selectedPlatform }: Props) => {
   const config = {
     params: { genres: selectedGenre?.id, platforms: selectedPlatform?.id },
   };
