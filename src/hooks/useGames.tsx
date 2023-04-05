@@ -2,6 +2,7 @@ import { SortOrder } from "../components/SortSelector";
 import useData from "./useData";
 import { Genre } from "./useGenres";
 import { Platform } from "./usePlatform";
+import { GameQuery } from "../App";
 
 export interface Game {
   id: string;
@@ -12,28 +13,18 @@ export interface Game {
   genres: Genre[];
 }
 
-interface Props {
-  selectedGenre: Genre | null;
-  selectedPlatform: Platform | null;
-  selectedOrder: SortOrder | null;
-}
-
-const useGames = ({
-  selectedGenre,
-  selectedPlatform,
-  selectedOrder,
-}: Props) => {
+const useGames = (gameQuery: GameQuery) => {
   const config = {
     params: {
-      genres: selectedGenre?.id,
-      platforms: selectedPlatform?.id,
-      ordering: selectedOrder?.value,
+      genres: gameQuery.genre?.id,
+      platforms: gameQuery.platform?.id,
+      ordering: gameQuery.order?.value,
     },
   };
   return useData<Game>("/games", config, [
-    selectedGenre?.id,
-    selectedPlatform?.id,
-    selectedOrder?.value,
+    gameQuery.genre?.id,
+    gameQuery.platform?.id,
+    gameQuery.order?.value,
   ]);
 };
 

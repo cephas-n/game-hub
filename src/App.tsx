@@ -8,24 +8,32 @@ import SortSelector, { SortOrder } from "./components/SortSelector";
 import { Genre } from "./hooks/useGenres";
 import { Platform } from "./hooks/usePlatform";
 
+export interface GameQuery {
+  genre: Genre | null;
+  platform: Platform | null;
+  order: SortOrder | null;
+}
+
 const App = () => {
-  const [selectedGenre, setSelectedGenre] = useState<Genre | null>(null);
-  const [selectedPlatform, setSelectedPlatform] = useState<Platform | null>(
-    null
-  );
-  const [selectedOrder, setSelectedOrder] = useState<SortOrder | null>(null);
+  const [gameQuery, setGameQuery] = useState<GameQuery>({
+    genre: null,
+    platform: null,
+    order: null,
+  });
 
   const handleSelectGenre = (genre: Genre) => {
-    setSelectedGenre(genre);
+    setGameQuery({ ...gameQuery, genre } as GameQuery);
   };
 
   const handleSelectPlatform = (platform: Platform) => {
-    if (platform.id === -1) setSelectedPlatform(null);
-    else setSelectedPlatform(platform);
+    const currentState = { ...gameQuery } as GameQuery;
+    if (platform.id === -1) setGameQuery({ ...currentState, platform: null });
+    else setGameQuery({ ...currentState, platform });
   };
 
   const handleSelectOrder = (order: SortOrder) => {
-    setSelectedOrder(order);
+    const currentState = { ...gameQuery } as GameQuery;
+    setGameQuery({ ...currentState, order });
   };
 
   return (
@@ -45,7 +53,7 @@ const App = () => {
       <Show above="lg">
         <GridItem area="aside" paddingX="20px">
           <GameGenreList
-            selectedGenre={selectedGenre}
+            selectedGenre={gameQuery?.genre}
             onSelect={handleSelectGenre}
           />
         </GridItem>
@@ -53,19 +61,15 @@ const App = () => {
       <GridItem area="main" padding={10}>
         <HStack spacing={4}>
           <PlatformSelector
-            selectedPlatform={selectedPlatform}
+            selectedPlatform={gameQuery.platform}
             onSelect={handleSelectPlatform}
           />
           <SortSelector
-            selectedOrder={selectedOrder}
+            selectedOrder={gameQuery.order}
             onSort={handleSelectOrder}
           />
         </HStack>
-        <GameGrid
-          selectedGenre={selectedGenre}
-          selectedPlatform={selectedPlatform}
-          selectedOrder={selectedOrder}
-        />
+        <GameGrid gameQuery={gameQuery} />
       </GridItem>
     </Grid>
   );
