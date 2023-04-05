@@ -1,11 +1,6 @@
 import useData from "./useData";
 import { Genre } from "./useGenres";
-
-export interface Platform {
-  id: string;
-  name: string;
-  slug: string;
-}
+import { Platform } from "./usePlatform";
 
 export interface Game {
   id: string;
@@ -16,9 +11,19 @@ export interface Game {
   genres: Genre[];
 }
 
-const useGames = (selectedGenre: Genre | null) => {
-  const config = { params: { genres: selectedGenre?.id } };
-  return useData<Game>("/games", config, [selectedGenre?.id]);
+interface GameHookParams {
+  selectedGenre: Genre | null;
+  selectedPlatform: Platform | null;
+}
+
+const useGames = ({ selectedGenre, selectedPlatform }: GameHookParams) => {
+  const config = {
+    params: { genres: selectedGenre?.id, platforms: selectedPlatform?.id },
+  };
+  return useData<Game>("/games", config, [
+    selectedGenre?.id,
+    selectedPlatform?.id,
+  ]);
 };
 
 export default useGames;
