@@ -22,17 +22,17 @@ const App = () => {
   });
 
   const handleSelectGenre = (genre: Genre) => {
-    setGameQuery({ ...gameQuery, genre } as GameQuery);
+    setGameQuery({ ...gameQuery, genre });
   };
 
   const handleSelectPlatform = (platform: Platform) => {
-    const currentState = { ...gameQuery } as GameQuery;
+    const currentState = { ...gameQuery };
     if (platform.id === -1) setGameQuery({ ...currentState, platform: null });
     else setGameQuery({ ...currentState, platform });
   };
 
   const handleSelectOrder = (order: SortOrder) => {
-    const currentState = { ...gameQuery } as GameQuery;
+    const currentState = { ...gameQuery };
     setGameQuery({ ...currentState, order });
   };
 
