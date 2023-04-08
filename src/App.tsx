@@ -2,6 +2,7 @@ import { Flex, Grid, GridItem, HStack, Show, Spinner } from "@chakra-ui/react";
 import { useState } from "react";
 import GameGenreList from "./components/GameGenreList";
 import GameGrid from "./components/GameGrid";
+import GameHeading from "./components/GameHeading";
 import NavBar from "./components/NavBar";
 import PlatformSelector from "./components/PlatformSelector";
 import SortSelector, { SortOrder } from "./components/SortSelector";
@@ -65,6 +66,7 @@ const App = () => {
         </GridItem>
       </Show>
       <GridItem area="main" padding={10}>
+        <GameHeading gameQuery={gameQuery} />
         <Flex gap={5}>
           <PlatformSelector
             selectedPlatform={gameQuery.platform}
