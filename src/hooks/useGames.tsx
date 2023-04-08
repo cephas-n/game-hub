@@ -19,13 +19,10 @@ const useGames = (gameQuery: GameQuery) => {
       genres: gameQuery.genre?.id,
       platforms: gameQuery.platform?.id,
       ordering: gameQuery.order?.value,
+      search: gameQuery.search,
     },
   };
-  return useData<Game>("/games", config, [
-    gameQuery.genre?.id,
-    gameQuery.platform?.id,
-    gameQuery.order?.value,
-  ]);
+  return useData<Game>("/games", config, [gameQuery]);
 };
 
 export default useGames;
